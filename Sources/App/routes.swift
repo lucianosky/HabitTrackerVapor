@@ -3,16 +3,6 @@ import Vapor
 /// Register your application's routes here.
 public func routes(_ router: Router) throws {
     
-    // Basic "It works" example
-    router.get { req in
-        return "It works!"
-    }
-    
-    // Basic "Hello, world!" example
-    router.get("hello") { req in
-        return "Hello, world!"
-    }
-    
     router.post("api", "habitlogs") { req -> Future<HabitLog> in
     return try req.content.decode(HabitLog.self)
         .flatMap(to: HabitLog.self) { habitLog in
@@ -20,5 +10,8 @@ public func routes(_ router: Router) throws {
         }
     }
 
+    router.get("api", "habitlogs") { req -> Future<[HabitLog]> in
+        return HabitLog.query(on: req).all()
+    }
 
 }

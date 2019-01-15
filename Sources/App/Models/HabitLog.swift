@@ -18,3 +18,5 @@ extension HabitLog: Migration {}
 
 extension HabitLog: Content {}
 
+extension HabitLog: Parameter {}
+
